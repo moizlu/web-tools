@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@100..700&family=M+PLUS+1p&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import 'tailwindcss';
+
+html {
+    scroll-behavior: smooth;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-primary: "M PLUS 1p", "monospace";
+
+    --color-light: var(--color-zinc-100);
+    --color-dark: var(--color-zinc-800);
+
+    --color-primary: light-dark(var(--color-light), var(--color-dark));
+    --color-accent: light-dark(var(--color-dark), var(--color-light));
+
+    --color-shadow: light-dark(white, black);
+}
+
+@layer base {
+    h1 {
+        @apply text-2xl md:text-5xl
+    }
+}

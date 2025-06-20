@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--?xml version="1.0" encoding="utf-8"?-->
+
+<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   version="1.1"
+   id="_x32_"
+   x="0px"
+   y="0px"
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   style="opacity:1"
+   xml:space="preserve"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs6" />
+<style
+   type="text/css"
+   id="style1">
+
+	.st0{fill:#4B4B4B;}
+
+</style>
+<g
+   id="g6"
+   style="fill:#27272a;fill-opacity:1">
+	<path
+   class="st0"
+   d="m 256,118.125 c -76.156,0 -137.875,61.719 -137.875,137.875 0,76.156 61.719,137.875 137.875,137.875 76.156,0 137.875,-61.719 137.875,-137.875 0,-76.156 -61.719,-137.875 -137.875,-137.875 z"
+   id="path1"
+   style="fill:#27272a;fill-opacity:1" />
+	<rect
+   x="235.90601"
+   class="st0"
+   width="40.155998"
+   height="77.296997"
+   id="rect1"
+   style="fill:#27272a;fill-opacity:1"
+   y="0" />
+	<rect
+   x="235.90601"
+   y="434.703"
+   class="st0"
+   width="40.155998"
+   height="77.296997"
+   id="rect2"
+   style="fill:#27272a;fill-opacity:1" />
+	
+		<rect
+   x="63.657001"
+   y="82.228996"
+   transform="matrix(0.7071,0.7071,-0.7071,0.7071,102.3047,-42.376)"
+   class="st0"
+   width="77.295998"
+   height="40.150002"
+   id="rect3"
+   style="fill:#27272a;fill-opacity:1" />
+	<polygon
+   class="st0"
+   points="368.156,396.547 422.828,451.219 451.219,422.813 396.563,368.156 "
+   id="polygon3"
+   style="fill:#27272a;fill-opacity:1" />
+	<rect
+   y="235.90601"
+   class="st0"
+   width="77.280998"
+   height="40.155998"
+   id="rect4"
+   style="fill:#27272a;fill-opacity:1"
+   x="0" />
+	<polygon
+   class="st0"
+   points="434.688,235.922 434.688,276.078 512,276.063 512,235.906 "
+   id="polygon4"
+   style="fill:#27272a;fill-opacity:1" />
+	<polygon
+   class="st0"
+   points="60.781,422.813 89.156,451.219 143.813,396.547 115.438,368.156 "
+   id="polygon5"
+   style="fill:#27272a;fill-opacity:1" />
+	<polygon
+   class="st0"
+   points="451.219,89.156 422.813,60.781 368.156,115.438 396.563,143.844 "
+   id="polygon6"
+   style="fill:#27272a;fill-opacity:1" />
+</g>
+</svg>
