@@ -24,7 +24,8 @@
     <Input placeholder="増分" bind:value={
             () => incremental,
             (v) => {
-                incremental = parseInt(v as unknown as string);
+                let value = parseInt(v as unknown as string)
+                incremental = (isNaN(value)) ? 0 : value;
                 localStorage.setItem("counter.incremental", incremental.toString());
             }
         } type="number" class="m-2 w-40" />
