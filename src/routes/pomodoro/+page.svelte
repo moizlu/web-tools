@@ -235,18 +235,18 @@
     @reference "../layout.css";
 
     progress {
-        @apply bg-transparent;
+        @apply rounded-xl bg-transparent inset-shadow-black inset-shadow-sm/50;
     }
 
     progress::-webkit-progress-bar {
-        @apply bg-transparent;
+        @apply rounded-xl bg-transparent;
     }
 
     progress::-webkit-progress-value {
-        @apply transition-all duration-300 bg-label;
+        @apply rounded-xl transition-all duration-300 bg-label;
     }
     progress::-moz-progress-bar {
-        @apply transition-all duration-300 bg-label;
+        @apply rounded-xl transition-all duration-300 bg-label;
     }
 
     .timer-text {
