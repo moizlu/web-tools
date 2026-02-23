@@ -1,12 +1,13 @@
 <!doctype html>
-<html lang="en">
-	<head>
+<html lang="ja">
+	<head prefix="og: https://ogp.me/ns#">
 		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1" />
 		%sveltekit.head%
 	</head>
-	<body data-sveltekit-preload-data="hover" class="font-primary scheme-light-dark bg-primary text-accent text-lg transition-colors duration-300">
+	<!-- 非同期にすると初期化処理の前に読み込めないことがあるため -->
+	<script src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
+	<body data-sveltekit-preload-data="hover" class="w-full h-dvh antialiased bg-base text-label font-primary transition-all duration-200">
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>

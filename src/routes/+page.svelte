@@ -1,19 +1,35 @@
 <script lang="ts">
-    import LinkButton from "$lib/components/ui/LinkButton/LinkButton.svelte";
-    import Icon from "$lib/components/ui/Icon/Icon.svelte";
+    import StudyIcon from "$lib/assets/icons/study.svelte";
+
+    import type { SvgComponent, ToolName } from "$lib/types";
+    import SvgIcon from "$lib/components/ui/SvgIcon";
+  import { onMount } from "svelte";
+  import { toolState } from "$lib/state/state.svelte";
+
+    interface Tool {
+        name: string;
+        url: ToolName;
+        icon: SvgComponent;
+    }
+
+    const tools: Tool[] = [
+        { name: "ポモドーロタイマー", url: "pomodoro", icon: StudyIcon }
+    ];
+
+    onMount(() => {
+        toolState.current = undefined;
+    })
 </script>
 
-{#snippet toolLink(href: string, text: string, lightSrc: string, darkSrc: string)}
-    <LinkButton {href} class="m-2 p-2 flex justify-start items-center">
-        <Icon {lightSrc} {darkSrc} width={30} class="m-2 drop-shadow-primary drop-shadow-sm" />
-        <p class="text-xl">{text}</p>
-    </LinkButton>
-{/snippet}
+<svelte:head>
+    <title>Webツール | moizlu</title>
+</svelte:head>
 
-<div class="min-h-screen flex flex-col justify-center items-center">
-    <h1>ツール</h1>
-    <div class="w-70 flex flex-col justify-center items-stretch">
-        {@render toolLink("/counter", "カウンター", "/icons/light/swap-vertical.svg", "/icons/dark/swap-vertical.svg")}
-        {@render toolLink("/clock", "時計", "/icons/light/clock.svg", "/icons/dark/clock.svg")}
-    </div>
-</div>
+<main class="px-5 mx-auto w-full max-w-100 h-full min-h-dvh flex-col-center">
+    {#each tools as tool}
+        <a href={tool.url} class="w-full p-2 flex-center button-general text-2xl">
+            <SvgIcon Svg={tool.icon} size={40} class="" />
+            <p class="flex-1 text-center text-sm sm:text-2xl">{`${tool.name.slice(0, 1).toUpperCase()}${tool.name.slice(1)}`}</p>
+        </a>
+    {/each}
+</main>
