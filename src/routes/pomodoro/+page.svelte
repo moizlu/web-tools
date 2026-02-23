@@ -57,8 +57,6 @@
                 return pageState.longBreakMin * 60;
         }
     });
-    let startTime = $state(0);
-    let endTime = $derived((startTime + sessionSec) - pageState.elapsedSec);
 
     const getRemainingTime = () => {
         return Math.max(0, sessionSec - pageState.elapsedSec);
@@ -100,6 +98,11 @@
 
                 alarmAudio!.currentTime =0;
                 alarmAudio!.play();
+
+                document.body.style.colorScheme = "light";
+                setTimeout(() => {
+                    document.body.style.colorScheme = "dark";
+                }, 600)
 
                 switch (pageState.currentSession) {
                     case 'work':
