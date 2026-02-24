@@ -10,6 +10,7 @@
     import { z } from "zod";
 
     import SvgIcon from "$lib/components/ui/SvgIcon";
+    import { theme } from "$lib/state";
 
     const POMODORO_TIME_MAX = 90 * 60;
     const BREAK_TIME_MAX = 30 * 60;
@@ -99,9 +100,9 @@
                 alarmAudio!.currentTime =0;
                 alarmAudio!.play();
 
-                document.body.style.colorScheme = "light";
+                document.body.style.colorScheme = (theme.theme === 'dark') ? 'light' : 'dark';
                 setTimeout(() => {
-                    document.body.style.colorScheme = "dark";
+                    document.body.style.colorScheme = (theme.theme === 'dark') ? 'dark' : 'light';
                 }, 600)
 
                 switch (pageState.currentSession) {
