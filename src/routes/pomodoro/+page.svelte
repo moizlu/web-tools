@@ -12,9 +12,9 @@
     import SvgIcon from "$lib/components/ui/SvgIcon";
     import { theme } from "$lib/state";
 
-    const POMODORO_TIME_MAX = 90 * 60;
-    const BREAK_TIME_MAX = 30 * 60;
-    const LONG_BREAK_TIME_MAX = 60 * 60;
+    const POMODORO_TIME_MAX = 90;
+    const BREAK_TIME_MAX = 30;
+    const LONG_BREAK_TIME_MAX = 60;
     const LONG_BREAK_INTERVAL_MAX = 10;
 
     const StateSchema = z.object({
@@ -72,6 +72,14 @@
         pageState.currentSession = 'work';
         pageState.count = 0;
         paused = true;
+    }
+
+    const onNumberChange = (max: number, min?: number) => {
+        if (!min) { min = 1; }
+
+        return (e: Event & { currentTarget: HTMLInputElement }) => {
+            console.log(e.currentTarget)
+        }
     }
 
     onMount(() => {
@@ -160,7 +168,7 @@
     <title>ポモドーロタイマー | moizlu</title>
 </svelte:head>
 
-<main class="mx-auto px-5 w-full max-w-150 h-full min-h-lvh overflow-y-auto flex-col-center overflow-x-clip">
+<main class="mx-auto px-5 w-full max-w-150 h-full min-h-svh overflow-y-auto flex-col-center overflow-x-clip">
 
     <div class="-z-1 w-fit h-fit">
         <progress value={1.0 - (pageState.elapsedSec / sessionSec)} class="w-full h-10 rotate-180"></progress>
@@ -211,7 +219,7 @@
         <div class="flex-col-center gap-2">
             <label class="w-full flex-center gap-2">
                 <p class="w-35 text-nowrap">作業</p>
-                <input type="number" placeholder="" min={1} max={POMODORO_TIME_MAX} step={1} disabled={!paused} bind:value={pageState.pomodoroMin} class="w-full text-right">
+                <input type="number" placeholder="" min={1} max={POMODORO_TIME_MAX} step={1} onchange={onNumberChange(POMODORO_TIME_MAX)} disabled={!paused} bind:value={pageState.pomodoroMin} class="w-full text-right">
                 <p>分</p>
             </label>
             <label class="w-full flex-center gap-2">

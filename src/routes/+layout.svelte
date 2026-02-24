@@ -36,7 +36,7 @@
 </svelte:head>
 
 <Header />
-<div class="w-full min-h-lvh">
+<div class="w-full min-h-svh py-12.5">
 	{@render children()}
 </div>
 <Footer />
