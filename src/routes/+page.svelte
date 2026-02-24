@@ -1,10 +1,11 @@
 <script lang="ts">
     import StudyIcon from "$lib/assets/icons/study.svelte";
+    import CounterIcon from "$lib/assets/icons/counter.svelte";
 
     import type { SvgComponent, ToolName } from "$lib/types";
     import SvgIcon from "$lib/components/ui/SvgIcon";
-  import { onMount } from "svelte";
-  import { toolState } from "$lib/state/state.svelte";
+    import { onMount } from "svelte";
+    import { toolState } from "$lib/state/state.svelte";
 
     interface Tool {
         name: string;
@@ -14,7 +15,7 @@
 
     const tools: Tool[] = [
         { name: "ポモドーロタイマー", url: "pomodoro", icon: StudyIcon },
-        { name: "カウンター", url: "counter", icon: StudyIcon }
+        { name: "カウンター", url: "counter", icon: CounterIcon }
     ];
 
     onMount(() => {

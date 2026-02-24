@@ -199,12 +199,9 @@
                 const validatedState = StateSchema.parse(JSON.parse(savedState));
                 pageState = validatedState;
             }
-        } catch (e) {
-            // 初期値を使うだけなので無視
-            console.log(e)
-        } finally {
-            localStorage.setItem('pomodoroState', JSON.stringify(pageState));
-        }
+        } catch {}
+
+        localStorage.setItem('pomodoroState', JSON.stringify(pageState));
 
         Object.entries(inputValues).forEach((prop) => {
             if (prop[0] in pageState) {
