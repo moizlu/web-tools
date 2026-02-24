@@ -2,8 +2,6 @@
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
 
-	import { dev } from '$app/environment';
-
 	import { theme } from '$lib/state';
 	theme.theme;
 
@@ -23,14 +21,14 @@
 	<meta property="og:site_name" content="Webツール | moizlu" />
 	<meta property="og:description" content="Webツール | moizlu" />
 
-	<meta http-equiv="content-security-policy" content="
+	<!-- <meta http-equiv="content-security-policy" content="
 		default-src 'self';
 		script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com 'unsafe-inline';
 		style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
 		font-src 'self' https://fonts.gstatic.com;
 		frame-src 'self' https://challenges.cloudflare.com;
 		img-src 'self' data: https:;
-	">
+	"> -->
 
 	<title>Webツール | moizlu</title>
 </svelte:head>
