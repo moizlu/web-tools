@@ -103,7 +103,7 @@
                     }
 
                     return `${itemName}の値は${max}以下である必要があります。`;
-                }, displayTime: 1000000000 })
+                } })
 
                 inputValues[name] = max;
 
