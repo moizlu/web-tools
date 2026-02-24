@@ -33,7 +33,7 @@
 
     import { toolState } from "$lib/state/state.svelte";
     import { onMount } from "svelte";
-  import { copyExistsProps, loadSavedData } from "$lib/utils";
+    import { copyExistsProps, loadSavedData } from "$lib/utils";
 
     let breakAlarmAudio: HTMLAudioElement | undefined = $state(undefined);
     let workAlarmAudio: HTMLAudioElement | undefined = $state(undefined);
