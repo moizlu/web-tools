@@ -5,7 +5,8 @@
     import PauseIcon from "$lib/assets/icons/pause.svelte";
     import ResetIcon from "$lib/assets/icons/reset.svelte";
 
-    import AlarmSound from "$lib/assets/sounds/alarm.wav";
+    import BreakAlarmSound from "$lib/assets/sounds/alarm1.mp3";
+    import WorkAlarm2Sound from "$lib/assets/sounds/alarm2.mp3";
 
     import { z } from "zod";
 
@@ -32,7 +33,8 @@
     import { toolState } from "$lib/state/state.svelte";
     import { onMount } from "svelte";
 
-    let alarmAudio: HTMLAudioElement | undefined = $state(undefined);
+    let breakAlarmAudio: HTMLAudioElement | undefined = $state(undefined);
+    let workAlarmAudio: HTMLAudioElement | undefined = $state(undefined);
 
     let pageState = $state({
         pomodoroMin: 25,
@@ -93,7 +95,8 @@
 
         document.addEventListener('keypress', onKeyDown);
 
-        alarmAudio = new Audio(AlarmSound);
+        breakAlarmAudio = new Audio(BreakAlarmSound);
+        workAlarmAudio = new Audio(WorkAlarm2Sound);
 
         const updateTimer = () => {
             const now = Math.floor(Date.now() / 1000);
@@ -105,8 +108,8 @@
             if (pageState.elapsedSec >= sessionSec) {
                 pageState.elapsedSec = 0;
 
-                alarmAudio!.currentTime =0;
-                alarmAudio!.play();
+                breakAlarmAudio!.currentTime = 0;
+                workAlarmAudio!.currentTime = 0;
 
                 document.body.style.colorScheme = (theme.theme === 'dark') ? 'light' : 'dark';
                 setTimeout(() => {
@@ -121,10 +124,13 @@
                         } else {
                             pageState.currentSession = 'break';
                         }
+
+                        breakAlarmAudio!.play();
                         break;
                     case 'break':
                     case 'longBreak':
                         pageState.currentSession = 'work';
+                        workAlarmAudio!.play();
                         break;
                 }
             }
@@ -145,8 +151,10 @@
             localStorage.setItem('pomodoroState', JSON.stringify(pageState));
         }
 
-        alarmAudio.volume = pageState.volume;
-        alarmAudio.muted = pageState.alarmMuted;
+        breakAlarmAudio.volume = pageState.volume;
+        workAlarmAudio.volume = pageState.volume;
+        breakAlarmAudio.muted = pageState.alarmMuted;
+        workAlarmAudio.muted = pageState.alarmMuted;
 
         return () => {
             document.removeEventListener('keypress', onKeyDown);
@@ -201,20 +209,22 @@
         </button>
     </div>
 
-    {#if alarmAudio}
-        <div class="m-2 flex-center gap-2">
-            <button title="ミュート切り替え" onclick={() => { pageState.alarmMuted = !pageState.alarmMuted; alarmAudio!.muted = pageState.alarmMuted }} class="cursor-pointer">
+    {#if breakAlarmAudio && workAlarmAudio}
+        <div class="mt-2 flex-center gap-2">
+            <button title="ミュート切り替え" onclick={() => { pageState.alarmMuted = !pageState.alarmMuted; breakAlarmAudio!.muted = pageState.alarmMuted; workAlarmAudio!.muted = pageState.alarmMuted }} class="cursor-pointer">
                 {#if pageState.alarmMuted}
                     <SvgIcon Svg={MuteIcon} size={30} />
                 {:else}
                     <SvgIcon Svg={VolumeIcon} size={30} />
                 {/if}
             </button>
-            <input type="range" min={0} max={1} step={0.1} bind:value={alarmAudio.volume} onchange={() => pageState.volume = alarmAudio!.volume}>
-            <button title="音量テスト" onclick={() => { alarmAudio!.currentTime = 0; alarmAudio!.play() }} class="p-2 button-general cursor-pointer">
+            <input type="range" min={0} max={1} step={0.1} bind:value={breakAlarmAudio.volume} onchange={() => { pageState.volume = breakAlarmAudio!.volume; }}>
+            <button title="音量テスト" onclick={() => { breakAlarmAudio!.currentTime = 0; breakAlarmAudio!.play() }} class="p-2 button-general cursor-pointer">
                 <p class="text-sm">テスト</p>
             </button>
         </div>
+
+        <p class="m-2 text-xs">※作業開始時と休憩開始時で効果音が違います。</p>
     {/if}
 
     <div class="w-full flex-col sm:flex-row flex-center gap-2">
