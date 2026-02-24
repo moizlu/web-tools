@@ -33,6 +33,7 @@
 
     import { toolState } from "$lib/state/state.svelte";
     import { onMount } from "svelte";
+  import { copyExistsProps, loadSavedData } from "$lib/utils";
 
     let breakAlarmAudio: HTMLAudioElement | undefined = $state(undefined);
     let workAlarmAudio: HTMLAudioElement | undefined = $state(undefined);
@@ -50,7 +51,7 @@
     });
 
     // 範囲外の値がUIやLocalStorageに反映されないようにするためのバッファー
-    const inputValues = $state({
+    let inputValues = $state({
         pomodoroMin: 0,
         breakMin: 0,
         longBreakMin: 0,
@@ -192,22 +193,8 @@
 
         const intervalTimer = setInterval(updateTimer, 100);
 
-        // LocalStorageからの値の読み出し
-        try {
-            const savedState = localStorage.getItem('pomodoroState');
-            if (savedState) {
-                const validatedState = StateSchema.parse(JSON.parse(savedState));
-                pageState = validatedState;
-            }
-        } catch {}
-
-        localStorage.setItem('pomodoroState', JSON.stringify(pageState));
-
-        Object.entries(inputValues).forEach((prop) => {
-            if (prop[0] in pageState) {
-                (inputValues as any)[prop[0]] = (pageState as any)[prop[0]];
-            }
-        });
+        pageState = loadSavedData('pomodoro', pageState, StateSchema);
+        inputValues = copyExistsProps(pageState, inputValues)
 
         breakAlarmAudio.volume = pageState.volume;
         workAlarmAudio.volume = pageState.volume;
