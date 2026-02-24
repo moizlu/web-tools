@@ -5,6 +5,8 @@
 	import { theme } from '$lib/state';
 	theme.theme;
 
+	import ToastEntryPoint from '$lib/components/ui/Toast/ToastEntryPoint.svelte';
+
 	import Header from '$lib/components/sections/Header';
 	import Footer from '$lib/components/sections/Footer';
 
@@ -32,6 +34,8 @@
 
 	<title>Webツール | moizlu</title>
 </svelte:head>
+
+<ToastEntryPoint />
 
 <Header />
 <div class="w-full min-h-svh py-12.5">

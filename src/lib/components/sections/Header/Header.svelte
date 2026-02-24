@@ -7,7 +7,7 @@
     import ThemeButton from "./ThemeButton.svelte";
 </script>
 
-<header class="fixed w-full h-12.5 z-1000 bg-base flex justify-between items-center px-3">
+<header class="fixed w-full h-12.5 z-100 bg-base flex justify-between items-center px-3">
     <a href="/" title="ホームに戻る" class="h-full flex-center gap-2">
         <SvgIcon Svg={ToolsIcon} size={30} class="text-label" />
         <p class="hidden sm:block">ツール集</p>
