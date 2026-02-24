@@ -76,6 +76,9 @@
 
     const onPlayPauseClick = () => {
         paused = !paused;
+        if (!paused) {
+            lastUpdatedTime = Date.now();
+        }
     }
 
     const onResetClick = () => {
@@ -218,12 +221,6 @@
             document.removeEventListener('keypress', onKeyDown);
             clearInterval(intervalTimer);
         }
-    });
-
-    // 開始された時にタイマーの基準の時間を更新する(タイマーがすぐにカウントされるのを防ぐため)
-    $effect(() => {
-        if (paused) { return; }
-        lastUpdatedTime = Date.now();
     });
 
     // 変更があった時に設定をLocalStorageに保存する
