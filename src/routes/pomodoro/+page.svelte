@@ -117,7 +117,7 @@
                         case 'longBreakInterval': itemName = "休憩頻度"; break;
                     }
 
-                    return `${itemName}の値は${max}以上である必要があります。`;
+                    return `${itemName}の値は${min}以上である必要があります。`;
                 } })
 
                 inputValues[name] = min;
