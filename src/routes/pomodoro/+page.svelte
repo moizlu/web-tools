@@ -175,6 +175,8 @@
         <h1 class="timer-text mb-10">{`${`${Math.floor(getRemainingTime() / 60)}`.padStart(2, '0')}:${`${getRemainingTime() % 60}`.padStart(2, '0')}`}</h1>
     </div>
 
+    <p class="text-2xl">{pageState.count}ポモドーロ</p>
+
     <p class="text-5xl mb-5">{(() => {
                     switch (pageState.currentSession) {
                         case 'work':
