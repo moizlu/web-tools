@@ -13,7 +13,8 @@
     }
 
     const tools: Tool[] = [
-        { name: "ポモドーロタイマー", url: "pomodoro", icon: StudyIcon }
+        { name: "ポモドーロタイマー", url: "pomodoro", icon: StudyIcon },
+        { name: "カウンター", url: "counter", icon: StudyIcon }
     ];
 
     onMount(() => {
