@@ -53,6 +53,7 @@
 <main class="mx-auto px-5 w-full max-w-150 h-full min-h-svh overflow-y-auto flex-col-center overflow-x-clip border-label">
     <h1 class="m-2 p-2 w-full text-right count-text border rounded-xl">{pageState.count}</h1>
 
+    <p class="text-xl">増分</p>
     <InputNumber bind:value={inputValues.incremental} onValueChange={onNumberChange} class="w-30 text-right" />
 
     <div class="mt-10 flex-center">
