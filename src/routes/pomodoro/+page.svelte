@@ -1,4 +1,5 @@
 <script lang="ts">
+    import PiPIcon from "$lib/assets/icons/pip.svelte";
     import VolumeIcon from "$lib/assets/icons/volume.svelte";
     import MuteIcon from "$lib/assets/icons/mute.svelte";
     import PlayIcon from "$lib/assets/icons/play.svelte";
@@ -9,6 +10,8 @@
     import WorkAlarm2Sound from "$lib/assets/sounds/alarm2.mp3";
 
     import { z } from "zod";
+
+    import { DrawPiP } from "./pip";
 
     import { toast } from "$lib/components/ui/Toast";
     import SvgIcon from "$lib/components/ui/SvgIcon";
@@ -35,6 +38,7 @@
     import { onMount } from "svelte";
     import { copyExistsProps, loadSavedData } from "$lib/utils";
 
+    let pip: DrawPiP | undefined = undefined;
     let breakAlarmAudio: HTMLAudioElement | undefined = $state(undefined);
     let workAlarmAudio: HTMLAudioElement | undefined = $state(undefined);
 
@@ -71,7 +75,7 @@
         }
     });
 
-    const getRemainingTime = () => {
+    const getRemainingSec = () => {
         return Math.max(0, sessionSec - pageState.elapsedSec);
     }
 
@@ -133,6 +137,16 @@
 
     onMount(() => {
         toolState.current = 'pomodoro';
+
+        pip = new DrawPiP({
+            onPlay() {
+                paused = false;
+                lastUpdatedTime = Date.now();
+            },
+            onPause() {
+                paused = true;
+            },
+        });
 
         // キーボードショートカット(スペースで開始/停止)
         const onKeyDown = (event: KeyboardEvent) => {
@@ -211,6 +225,17 @@
     $effect(() => {
         localStorage.setItem('pomodoroState', JSON.stringify(pageState));
     });
+
+    $effect(() => {
+        pip!.state = {
+            currentSession: pageState.currentSession,
+            sessionSec: sessionSec,
+            elapsedSec: pageState.elapsedSec,
+            remainingSec: getRemainingSec(),
+            count: pageState.count,
+            paused: paused
+        }
+    })
 </script>
 
 <svelte:head>
@@ -219,10 +244,15 @@
 
 <main class="mx-auto px-5 w-full max-w-150 h-full min-h-svh overflow-y-auto flex-col-center overflow-x-clip">
 
+    <button title="PiPを開始" onclick={() => pip?.start()} class="p-2 mb-10 flex-center gap-2 button-general">
+        <SvgIcon Svg={PiPIcon} size={40} />
+        <p class="text-xs 2xs:text-sm sm:text-xl">ピクチャーインピクチャーを開始</p>
+    </button>
+
     <!-- タイマー表示 -->
     <div class="-z-1 w-fit h-fit">
         <progress value={1.0 - (pageState.elapsedSec / sessionSec)} class="w-full h-10 rotate-180"></progress>
-        <h1 class="timer-text mb-10">{`${`${Math.floor(getRemainingTime() / 60)}`.padStart(2, '0')}:${`${getRemainingTime() % 60}`.padStart(2, '0')}`}</h1>
+        <h1 class="timer-text mb-10">{`${`${Math.floor(getRemainingSec() / 60)}`.padStart(2, '0')}:${`${getRemainingSec() % 60}`.padStart(2, '0')}`}</h1>
     </div>
 
     <p class="text-2xl">{pageState.count}ポモドーロ</p>
@@ -230,12 +260,9 @@
     <!-- 現在のセッション -->
     <p class="text-5xl mb-5">{(() => {
                     switch (pageState.currentSession) {
-                        case 'work':
-                            return "作業";
-                        case 'break':
-                            return "小休憩";
-                        case 'longBreak':
-                            return "休憩";
+                        case 'work': return "作業";
+                        case 'break': return "小休憩";
+                        case 'longBreak': return "休憩";
                     }
                 })()}</p>
 

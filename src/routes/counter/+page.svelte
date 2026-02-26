@@ -63,11 +63,11 @@
         <button title="-" onclick={() => pageState.count += pageState.incremental} class="mr-3 cursor-pointer rounded-full border-2">
             <SvgIcon Svg={MinusIcon} size={80} />
         </button>
-
-        <button title="reset" onclick={() => pageState.count = 0} class="cursor-pointer rounded-full border-2">
-            <SvgIcon Svg={ResetIcon} size={60} />
-        </button>
     </div>
+
+    <button title="reset" onclick={() => pageState.count = 0} class="cursor-pointer rounded-full border-2">
+        <SvgIcon Svg={ResetIcon} size={60} />
+    </button>
 </main>
 
 <style>
