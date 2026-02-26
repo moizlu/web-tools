@@ -23,6 +23,13 @@
     const LONG_BREAK_TIME_MAX = 60;
     const LONG_BREAK_INTERVAL_MAX = 10;
 
+    const defaultValues = {
+        pomodoroMin: 25,
+        breakMin: 5,
+        longBreakMin: 15,
+        longBreakInterval: 4,
+    };
+
     const StateSchema = z.object({
         pomodoroMin: z.number().min(1).max(POMODORO_TIME_MAX),
         breakMin: z.number().min(1).max(BREAK_TIME_MAX),
@@ -46,10 +53,7 @@
     let progressPer: number = $state(0);
 
     let pageState = $state({
-        pomodoroMin: 25,
-        breakMin: 5,
-        longBreakMin: 15,
-        longBreakInterval: 4,
+        ...defaultValues,
         elapsedSec: 0,
         currentSession: 'work' as ('work' | 'break' | 'longBreak'),
         count: 0,
@@ -95,6 +99,13 @@
         pageState.currentSession = 'work';
         pageState.count = 0;
         paused = true;
+    }
+
+    const onResetValueClick = () => {
+        Object.entries(defaultValues).forEach((prop) => {
+            inputValues[prop[0] as keyof typeof defaultValues] = prop[1];
+            pageState[prop[0] as keyof typeof defaultValues] = prop[1];
+        })
     }
 
     // 設定が変更された時に値をクランプしたうえで適用する
@@ -339,6 +350,11 @@
             </label>
         </div>
     </div>
+
+    <button onclick={onResetValueClick} class="mt-2 p-2 flex-center border-label border rounded-full cursor-pointer">
+        <SvgIcon Svg={ResetIcon} size={30} />
+        <p>設定値をリセット</p>
+    </button>
 </main>
 
 <style>
