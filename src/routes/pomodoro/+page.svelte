@@ -5,6 +5,7 @@
     import PlayIcon from "$lib/assets/icons/play.svelte";
     import PauseIcon from "$lib/assets/icons/pause.svelte";
     import ResetIcon from "$lib/assets/icons/reset.svelte";
+    import DoubleArrowIcon from "$lib/assets/icons/double-arrow.svelte";
 
     import BreakAlarmSound from "$lib/assets/sounds/alarm1.mp3";
     import WorkAlarm2Sound from "$lib/assets/sounds/alarm2.mp3";
@@ -291,7 +292,7 @@
                 })()}</p>
 
     <!-- 開始/停止、リセット -->
-    <div class="flex-center gap-10 m-10">
+    <div class="flex-center gap-10">
         <button onclick={onPlayPauseClick} class="w-20 h-20 overflow-clip cursor-pointer border-label border-2 rounded-full">
             <div class={["transition-all duration-300 w-full h-fit flex-col-center", (!paused) && "-translate-y-20"]}>
                 <SvgIcon Svg={PlayIcon} size={80} />
@@ -303,6 +304,11 @@
             <SvgIcon Svg={ResetIcon} size={80} />
         </button>
     </div>
+
+    <button onclick={() => pageState.elapsedSec = sessionSec} class="m-2 p-2 flex-center button-general cursor-pointer">
+        <SvgIcon Svg={DoubleArrowIcon} size={40} class="rotate-90" />
+        <p>スキップ</p>
+    </button>
 
     <!-- アラームの音量 -->
     {#if breakAlarmAudio && workAlarmAudio}
