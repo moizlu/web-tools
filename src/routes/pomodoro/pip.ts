@@ -1,5 +1,7 @@
 import { browser } from "$app/environment";
 
+import { toast } from "$lib/components/ui/Toast";
+
 interface PiPState {
     currentSession: 'work' | 'break' | 'longBreak';
     sessionSec: number;
@@ -117,7 +119,7 @@ export class DrawPiP {
                 navigator.mediaSession.playbackState = 'paused';
             }
         } catch {
-            /* することがない */
+            toast.push({ text: "PiPの起動に失敗しました。" });
         }
     }
 
