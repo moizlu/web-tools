@@ -1,6 +1,7 @@
 <script lang="ts">
     import StudyIcon from "$lib/assets/icons/study.svelte";
     import CounterIcon from "$lib/assets/icons/counter.svelte";
+    import ClockIcon from "$lib/assets/icons/clock.svelte";
 
     import type { SvgComponent, ToolName } from "$lib/types";
     import SvgIcon from "$lib/components/ui/SvgIcon";
@@ -15,7 +16,8 @@
 
     const tools: Tool[] = [
         { name: "ポモドーロタイマー", url: "pomodoro", icon: StudyIcon },
-        { name: "カウンター", url: "counter", icon: CounterIcon }
+        { name: "カウンター", url: "counter", icon: CounterIcon },
+        { name: "時計", url: "clock", icon: ClockIcon }
     ];
 
     onMount(() => {
