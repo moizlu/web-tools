@@ -264,11 +264,11 @@
 </svelte:head>
 
 <main class="mx-auto px-5 w-full max-w-150 h-full min-h-svh overflow-y-auto flex-col-center overflow-x-clip">
-
-    <button title="PiPを開始" onclick={() => { paused = true; pip?.start() }} class="p-2 mb-10 flex-center gap-2 button-general">
+    <button title="PiPを開始" onclick={() => { paused = true; pip?.start() }} class="p-2 flex-center gap-2 button-general">
         <SvgIcon Svg={PiPIcon} size={40} />
         <p class="text-xs 2xs:text-sm sm:text-xl">ピクチャーインピクチャーを開始</p>
     </button>
+    <p class="mt-2 mb-10 text-xs">※挙動がおかしい場合は開き直してみてください。</p>
 
     <!-- タイマー表示 -->
     <div class="-z-1 w-fit h-fit">
