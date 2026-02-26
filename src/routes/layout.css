@@ -1,8 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+1&display=swap');
 @import 'tailwindcss';
 
+:root {
+    --pomodoro-progress-fill-work-light: #DB6E00;
+    --pomodoro-progress-fill-work-dark: #F0B300;
+    --pomodoro-progress-fill-break-light: #0070BF;
+    --pomodoro-progress-fill-break-dark: #00E6FF;
+}
+
 html {
     scroll-behavior: smooth;
+
     /* word-break: keep-all; */
     /* overflow-wrap: break-word; */
     @apply md:scroll-pt-15  min-h-full;

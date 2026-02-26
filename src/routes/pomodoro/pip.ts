@@ -54,29 +54,38 @@ export class DrawPiP {
             this._video.pause();
             navigator.mediaSession.playbackState = 'paused';
         });
+
+        const rootStyles = getComputedStyle(document.body);
+
+        this._styles = {
+            light: rootStyles.getPropertyValue("--color-base-light").trim(),
+            dark: rootStyles.getPropertyValue("--color-base-dark").trim(),
+
+            progressFillWorkLight: rootStyles.getPropertyValue("--pomodoro-progress-fill-work-light"),
+            progressFillWorkDark: rootStyles.getPropertyValue("--pomodoro-progress-fill-work-dark"),
+            progressFillBreakLight: rootStyles.getPropertyValue("--pomodoro-progress-fill-break-light"),
+            progressFillBreakDark: rootStyles.getPropertyValue("--pomodoro-progress-fill-break-dark"),
+        };
     }
 
     public draw() {
-        const rootStyles = getComputedStyle(document.body);
-
         const colorScheme = document.body.style.colorScheme;
 
-        // `light-dark()`が処理されない(TT)
-        const styles = {
-            light: rootStyles.getPropertyValue("--color-base-light").trim(),
-            dark: rootStyles.getPropertyValue("--color-base-dark").trim(),
-        };
-
         const theme = {
-            base: (colorScheme === 'dark') ? styles.dark : styles.light,
-            label: (colorScheme === 'dark') ? styles.light :styles.dark
+            base: (colorScheme === 'dark') ? this._styles.dark : this._styles.light,
+            label: (colorScheme === 'dark') ? this._styles.light : this._styles.dark,
+            fillWork: (colorScheme === 'dark') ? this._styles.progressFillWorkDark : this._styles.progressFillWorkLight,
+            fillBreak: (colorScheme === 'dark') ? this._styles.progressFillBreakDark : this._styles.progressFillBreakLight,
         }
 
+        // 背景
         this._ctx.fillStyle = theme.base;
         this._ctx.fillRect(0, 0, this._canvas.width, this._canvas.height);
 
-        this._ctx.fillStyle = theme.label;
+        // プログレスバー
+        this._ctx.fillStyle = (this.state.currentSession === 'work') ? theme.fillWork : theme.fillBreak;
         this._ctx.fillRect(50, 50, this._canvas.width - 100, 50);
+        // 背景色で塗りつぶす
         this._ctx.fillStyle = theme.base;
         this._ctx.fillRect(50, 50, (this._canvas.width - 100) * (this.state.elapsedSec / this.state.sessionSec), 50);
 
@@ -86,7 +95,7 @@ export class DrawPiP {
         this._ctx.fillText(`${`${Math.floor(this.state.remainingSec / 60)}`.padStart(2, '0')}:${`${this.state.remainingSec % 60}`.padStart(2, '0')}`, 150, 200);
 
         this._ctx.font = "bold 40px monospace";
-        this._ctx.fillText(`${this.state.count}ポモドーロ`, 150, 300);
+        this._ctx.fillText(`${this.state.count}ポモドーロ`, 170, 300);
 
         this._ctx.font = "bold 100px monospace";
         this._ctx.fillText(`${(() => {
@@ -118,9 +127,10 @@ export class DrawPiP {
                 this._video.pause();
                 navigator.mediaSession.playbackState = 'paused';
             }
-        } catch (e) {
-            console.log(e)
-            toast.push({ text: "PiPの起動に失敗しました。\nFirefoxなど非対応のブラウザでないか確認してください。" });
+        } catch {
+            if (!this._isPiPOpened) {
+                toast.push({ text: "PiPの起動に失敗しました。\nFirefoxなど非対応のブラウザでないか確認してください。" });
+            }
         }
     }
 
@@ -147,6 +157,15 @@ export class DrawPiP {
     private readonly _audioTrack: MediaStreamTrack;
 
     private _isPiPOpened: boolean = false;
+
+    private _styles: {
+        light: string,
+        dark: string,
+        progressFillWorkLight: string,
+        progressFillWorkDark: string,
+        progressFillBreakLight: string,
+        progressFillBreakDark: string,
+    }
 
     private _state: PiPState = {
         currentSession: 'work',

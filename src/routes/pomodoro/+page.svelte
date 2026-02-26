@@ -14,8 +14,9 @@
     import { DrawPiP } from "./pip";
 
     import { toast } from "$lib/components/ui/Toast";
-    import SvgIcon from "$lib/components/ui/SvgIcon";
     import { theme } from "$lib/state";
+    import SvgIcon from "$lib/components/ui/SvgIcon";
+    import ProgressBar from "./ProgressBar.svelte";
 
     const POMODORO_TIME_MAX = 90;
     const BREAK_TIME_MAX = 30;
@@ -41,6 +42,8 @@
     let pip: DrawPiP | undefined = undefined;
     let breakAlarmAudio: HTMLAudioElement | undefined = $state(undefined);
     let workAlarmAudio: HTMLAudioElement | undefined = $state(undefined);
+
+    let progressPer: number = $state(0);
 
     let pageState = $state({
         pomodoroMin: 25,
@@ -87,6 +90,7 @@
     }
 
     const onResetClick = () => {
+        progressPer = 1.0;
         pageState.elapsedSec = 0;
         pageState.currentSession = 'work';
         pageState.count = 0;
@@ -137,6 +141,8 @@
 
     onMount(() => {
         toolState.current = 'pomodoro';
+
+        progressPer = 1.0
 
         pip = new DrawPiP({
             onPlay() {
@@ -235,6 +241,10 @@
             count: pageState.count,
             paused: paused
         }
+    });
+
+    $effect(() => {
+        progressPer = 1.0 - (pageState.elapsedSec / sessionSec)
     })
 </script>
 
@@ -244,14 +254,17 @@
 
 <main class="mx-auto px-5 w-full max-w-150 h-full min-h-svh overflow-y-auto flex-col-center overflow-x-clip">
 
-    <button title="PiPを開始" onclick={() => pip?.start()} class="p-2 mb-10 flex-center gap-2 button-general">
+    <button title="PiPを開始" onclick={() => { paused = true; pip?.start() }} class="p-2 mb-10 flex-center gap-2 button-general">
         <SvgIcon Svg={PiPIcon} size={40} />
         <p class="text-xs 2xs:text-sm sm:text-xl">ピクチャーインピクチャーを開始</p>
     </button>
 
     <!-- タイマー表示 -->
     <div class="-z-1 w-fit h-fit">
-        <progress value={1.0 - (pageState.elapsedSec / sessionSec)} class="w-full h-10 rotate-180"></progress>
+        <!-- <div class="w-full h-10 rounded-xl inset-shadow-black inset-shadow-sm rotate-180">
+            <div bind:this={progressBarElement} class="transition-all duration-300 h-full rounded-xl bg-label"></div>
+        </div> -->
+        <ProgressBar session={pageState.currentSession} progress={progressPer} />
         <h1 class="timer-text mb-10">{`${`${Math.floor(getRemainingSec() / 60)}`.padStart(2, '0')}:${`${getRemainingSec() % 60}`.padStart(2, '0')}`}</h1>
     </div>
 
@@ -330,21 +343,6 @@
 
 <style>
     @reference "../layout.css";
-
-    progress {
-        @apply rounded-xl bg-transparent inset-shadow-black inset-shadow-sm/50;
-    }
-
-    progress::-webkit-progress-bar {
-        @apply rounded-xl bg-transparent;
-    }
-
-    progress::-webkit-progress-value {
-        @apply rounded-xl transition-all duration-300 bg-label;
-    }
-    progress::-moz-progress-bar {
-        @apply rounded-xl transition-all duration-300 bg-label;
-    }
 
     .timer-text {
         font-size: clamp(10px, 25cqw, 150px);
