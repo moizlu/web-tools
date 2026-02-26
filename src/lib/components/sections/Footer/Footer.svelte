@@ -2,7 +2,10 @@
     import favicon from "$lib/assets/favicon.svg"
     import JumpIcon from "$lib/assets/icons/jump.svelte";
     import MailIcon from "$lib/assets/icons/mail.svelte";
+    import GitHubLight from "$lib/assets/icons/light/github.svg";
+    import GitHubDark from "$lib/assets/icons/dark/github.svg";
 
+    import Icon from "$lib/components/ui/Icon";
     import SvgIcon from "$lib/components/ui/SvgIcon";
 </script>
 
@@ -13,7 +16,12 @@
         <SvgIcon Svg={JumpIcon} size={20} />
     </a>
 
-    <a href="https://moiz.lu/contact" title="お問い合わせ" target="_blank">
-        <SvgIcon Svg={MailIcon} size={30} />
-    </a>
+    <div class="flex-center gap-2">
+        <a href="https://moiz.lu/gh/portfolio-tools" title="GitHubリポジトリ" target="_blank">
+            <Icon lightSrc={GitHubLight} darkSrc={GitHubDark} size={30} />
+        </a>
+        <a href="https://moiz.lu/contact" title="お問い合わせ" target="_blank">
+            <SvgIcon Svg={MailIcon} size={30} />
+        </a>
+    </div>
 </footer>
