@@ -1,3 +1,5 @@
+import faviconUrl from "$lib/assets/favicon.svg";
+
 import { browser } from "$app/environment";
 
 import { toast } from "$lib/components/ui/Toast";
@@ -32,6 +34,9 @@ export class DrawPiP {
         this._ctx = ctx;
 
         this._video = document.createElement('video');
+
+        this._favicon = new Image();
+        this._favicon.src = faviconUrl;
 
         this._canvas.width = 640;
         this._canvas.height = 360;
@@ -81,6 +86,8 @@ export class DrawPiP {
         // 背景
         this._ctx.fillStyle = theme.base;
         this._ctx.fillRect(0, 0, this._canvas.width, this._canvas.height);
+
+        this._ctx.drawImage(this._favicon, 2, 2, 50, 50);
 
         // プログレスバー
         this._ctx.fillStyle = (this.state.currentSession === 'work') ? theme.fillWork : theme.fillBreak;
@@ -155,6 +162,7 @@ export class DrawPiP {
     private readonly _ctx: CanvasRenderingContext2D;
     private readonly _video: HTMLVideoElement;
     private readonly _audioTrack: MediaStreamTrack;
+    private readonly _favicon: HTMLImageElement;
 
     private _isPiPOpened: boolean = false;
 
