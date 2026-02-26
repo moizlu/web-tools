@@ -56,18 +56,20 @@
     <p class="text-xl">増分</p>
     <InputNumber bind:value={inputValues.incremental} onValueChange={onNumberChange} class="w-30 text-right" />
 
-    <div class="mt-10 flex-center">
-        <button title="+" onclick={() => pageState.count += pageState.incremental} class="mr-10 cursor-pointer rounded-full border-2">
-            <SvgIcon Svg={PlusIcon} size={80} />
-        </button>
-        <button title="-" onclick={() => pageState.count += pageState.incremental} class="mr-3 cursor-pointer rounded-full border-2">
-            <SvgIcon Svg={MinusIcon} size={80} />
+    <div class="flex-col-center">
+        <div class="mt-10 flex-center">
+            <button title="+" onclick={() => pageState.count += pageState.incremental} class="mr-10 cursor-pointer rounded-full border-2">
+                <SvgIcon Svg={PlusIcon} size={80} />
+            </button>
+            <button title="-" onclick={() => pageState.count += pageState.incremental} class="cursor-pointer rounded-full border-2">
+                <SvgIcon Svg={MinusIcon} size={80} />
+            </button>
+        </div>
+
+        <button title="reset" onclick={() => pageState.count = 0} class="cursor-pointer rounded-full border-2">
+            <SvgIcon Svg={ResetIcon} size={60} />
         </button>
     </div>
-
-    <button title="reset" onclick={() => pageState.count = 0} class="cursor-pointer rounded-full border-2">
-        <SvgIcon Svg={ResetIcon} size={60} />
-    </button>
 </main>
 
 <style>
