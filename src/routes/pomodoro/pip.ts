@@ -118,8 +118,9 @@ export class DrawPiP {
                 this._video.pause();
                 navigator.mediaSession.playbackState = 'paused';
             }
-        } catch {
-            toast.push({ text: "PiPの起動に失敗しました。" });
+        } catch (e) {
+            console.log(e)
+            toast.push({ text: "PiPの起動に失敗しました。\nFirefoxなど非対応のブラウザでないか確認してください。" });
         }
     }
 
