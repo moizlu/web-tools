@@ -61,7 +61,7 @@
             <button title="+" onclick={() => pageState.count += pageState.incremental} class="mr-10 cursor-pointer rounded-full border-2">
                 <SvgIcon Svg={PlusIcon} size={80} />
             </button>
-            <button title="-" onclick={() => pageState.count += pageState.incremental} class="cursor-pointer rounded-full border-2">
+            <button title="-" onclick={() => pageState.count -= pageState.incremental} class="cursor-pointer rounded-full border-2">
                 <SvgIcon Svg={MinusIcon} size={80} />
             </button>
         </div>
